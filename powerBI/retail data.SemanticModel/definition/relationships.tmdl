@@ -1,0 +1,29 @@
+relationship c096d2e6-dc7f-4a86-a5d9-bd5b143c3740
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'retail_dwh_dev dim_date'.full_date
+	toColumn: LocalDateTable_8c25ff4b-4fe9-4f3d-bcdf-35634ca20447.Date
+
+relationship 658c0193-db2c-48fa-a3c4-b6a89bc8e2a6
+	fromColumn: 'retail_dwh_dev fact_sales'.customer_id
+	toColumn: 'retail_dwh_dev dim_customer'.customer_id
+
+	annotation PBI_IsFromSource = FS
+
+relationship db9c4d48-9bc0-4138-bb32-a69114b0c584
+	fromColumn: 'retail_dwh_dev fact_sales'.product_id
+	toColumn: 'retail_dwh_dev dim_product'.product_id
+
+	annotation PBI_IsFromSource = FS
+
+relationship 2c701fdc-fbc0-48ab-b775-d49e28803bac
+	fromColumn: 'retail_dwh_dev fact_sales'.date_id
+	toColumn: 'retail_dwh_dev dim_date'.date_id
+
+	annotation PBI_IsFromSource = FS
+
+relationship b5f7e6de-0163-4dec-89ee-bd514e9b0efe
+	fromColumn: 'retail_dwh_dev fact_sales'.store_id
+	toColumn: 'retail_dwh_dev dim_store'.store_id
+
+	annotation PBI_IsFromSource = FS
+

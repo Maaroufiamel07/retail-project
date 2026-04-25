@@ -1,0 +1,24 @@
+model Model
+	culture: fr-FR
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: fr-FR
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_QueryOrder = ["retail_dwh_dev dim_customer","retail_dwh_dev dim_product","retail_dwh_dev fact_sales","retail_dwh_dev dim_date","retail_dwh_dev dim_store"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table 'retail_dwh_dev dim_customer'
+ref table 'retail_dwh_dev dim_product'
+ref table 'retail_dwh_dev fact_sales'
+ref table 'retail_dwh_dev dim_date'
+ref table DateTableTemplate_eade864f-6b5c-4762-9aad-780249a8ea1e
+ref table LocalDateTable_8c25ff4b-4fe9-4f3d-bcdf-35634ca20447
+ref table 'retail_dwh_dev dim_store'
+
+ref cultureInfo fr-FR
+

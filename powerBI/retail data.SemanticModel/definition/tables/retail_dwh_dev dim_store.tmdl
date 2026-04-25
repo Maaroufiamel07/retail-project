@@ -1,0 +1,39 @@
+table 'retail_dwh_dev dim_store'
+	lineageTag: 4e385060-cb0a-4082-a3ef-9b824072ac87
+
+	column store_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 26f99847-1b9d-419f-8b45-0b78a0b7a381
+		summarizeBy: none
+		sourceColumn: store_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column stock_code
+		dataType: string
+		lineageTag: a9c07e2f-509c-4dfa-9323-9a54d0fa9194
+		summarizeBy: none
+		sourceColumn: stock_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column description
+		dataType: string
+		lineageTag: a1a872b2-622b-4aa6-af99-d5780654848c
+		summarizeBy: none
+		sourceColumn: description
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'retail_dwh_dev dim_store' = m
+		mode: import
+		source =
+				let
+				    Source = MySQL.Database("127.0.0.1:3307", "retail_dwh_dev", [ReturnSingleDatabase=true]),
+				    retail_dwh_dev_dim_store = Source{[Schema="retail_dwh_dev",Item="dim_store"]}[Data]
+				in
+				    retail_dwh_dev_dim_store
+
+	annotation PBI_ResultType = Table
+

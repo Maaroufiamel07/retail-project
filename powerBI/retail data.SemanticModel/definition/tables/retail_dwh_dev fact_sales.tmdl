@@ -1,0 +1,96 @@
+table 'retail_dwh_dev fact_sales'
+	lineageTag: e59f4e78-83cf-4c28-85c6-cfe758a4052d
+
+	column sale_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 2ed92f5e-75c0-431a-8e95-313453d659ef
+		summarizeBy: sum
+		sourceColumn: sale_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_id
+		dataType: int64
+		formatString: 0
+		lineageTag: d28c343c-b8a9-4e88-9b80-daa84e9752d9
+		summarizeBy: none
+		sourceColumn: product_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_id
+		dataType: int64
+		formatString: 0
+		lineageTag: c15348f7-6470-4244-8b7a-848307d94561
+		summarizeBy: none
+		sourceColumn: customer_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column date_id
+		dataType: int64
+		formatString: 0
+		lineageTag: c5ec5be7-c43e-4233-a903-3734709a2f25
+		summarizeBy: none
+		sourceColumn: date_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column store_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 05de3f0d-cc43-4897-bf7b-dcbad9387f3d
+		summarizeBy: none
+		sourceColumn: store_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column invoice_no
+		dataType: string
+		lineageTag: b399d138-9ccb-4f70-a378-8c12c8e7c1d2
+		summarizeBy: none
+		sourceColumn: invoice_no
+
+		annotation SummarizationSetBy = Automatic
+
+	column quantity
+		dataType: int64
+		formatString: 0
+		lineageTag: ffa8d07b-1fde-4ecc-9b60-5822a164b2f0
+		summarizeBy: sum
+		sourceColumn: quantity
+
+		annotation SummarizationSetBy = Automatic
+
+	column unit_price
+		dataType: double
+		lineageTag: ec896c3b-b109-428c-a03e-df1bc922ee8e
+		summarizeBy: sum
+		sourceColumn: unit_price
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column total_amount
+		dataType: double
+		lineageTag: 8787b45d-1de9-4767-9ade-e3de1c99025c
+		summarizeBy: sum
+		sourceColumn: total_amount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition 'retail_dwh_dev fact_sales' = m
+		mode: import
+		source =
+				let
+				    Source = MySQL.Database("127.0.0.1:3307", "retail_dwh_dev", [ReturnSingleDatabase=true]),
+				    retail_dwh_dev_fact_sales = Source{[Schema="retail_dwh_dev",Item="fact_sales"]}[Data]
+				in
+				    retail_dwh_dev_fact_sales
+
+	annotation PBI_ResultType = Table
+

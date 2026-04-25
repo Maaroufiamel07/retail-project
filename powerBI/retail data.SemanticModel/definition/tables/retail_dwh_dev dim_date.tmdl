@@ -1,0 +1,83 @@
+table 'retail_dwh_dev dim_date'
+	lineageTag: 134c0e79-edc4-41c9-ac8e-08f624b12aa1
+
+	column date_id
+		dataType: int64
+		formatString: 0
+		lineageTag: be1e5c48-eccd-437e-9cac-0c00b6e6f94d
+		summarizeBy: none
+		sourceColumn: date_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column full_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: c54b6671-7f8f-41c8-8f5b-0744ccfbdd0d
+		summarizeBy: none
+		sourceColumn: full_date
+
+		variation Variation
+			isDefault
+			relationship: c096d2e6-dc7f-4a86-a5d9-bd5b143c3740
+			defaultHierarchy: LocalDateTable_8c25ff4b-4fe9-4f3d-bcdf-35634ca20447.'Hiérarchie de dates'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column year
+		dataType: int64
+		formatString: 0
+		lineageTag: d9ada09d-a48f-44b4-af10-7665606ae98a
+		summarizeBy: sum
+		sourceColumn: year
+
+		annotation SummarizationSetBy = Automatic
+
+	column month
+		dataType: int64
+		formatString: 0
+		lineageTag: 55b4ef53-3227-456f-947e-3dfb8daa0145
+		summarizeBy: sum
+		sourceColumn: month
+
+		annotation SummarizationSetBy = Automatic
+
+	column quarter
+		dataType: int64
+		formatString: 0
+		lineageTag: ca2de9ee-8037-4e1b-adef-8d91b1bad71a
+		summarizeBy: sum
+		sourceColumn: quarter
+
+		annotation SummarizationSetBy = Automatic
+
+	column day_of_week
+		dataType: int64
+		formatString: 0
+		lineageTag: 6643f64c-18ee-4881-8f13-600bba9daeca
+		summarizeBy: sum
+		sourceColumn: day_of_week
+
+		annotation SummarizationSetBy = Automatic
+
+	column day_name
+		dataType: string
+		lineageTag: e67b67d9-12e8-44fc-9f9a-943f48e13728
+		summarizeBy: none
+		sourceColumn: day_name
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'retail_dwh_dev dim_date' = m
+		mode: import
+		source =
+				let
+				    Source = MySQL.Database("127.0.0.1:3307", "retail_dwh_dev", [ReturnSingleDatabase=true]),
+				    retail_dwh_dev_dim_date = Source{[Schema="retail_dwh_dev",Item="dim_date"]}[Data]
+				in
+				    retail_dwh_dev_dim_date
+
+	annotation PBI_ResultType = Table
+
